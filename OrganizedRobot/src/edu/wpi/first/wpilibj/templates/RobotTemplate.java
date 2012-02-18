@@ -118,7 +118,7 @@ public class RobotTemplate extends IterativeRobot {
         number = cent.continuous(oi.centerButton());
         display.println(DriverStationLCD.Line.kMain6, 1, "Distance: "+number);
         try{
-            System.out.println("Trying shooter continuous.");
+//            System.out.println("Trying shooter continuous.");
             shoot.continuous(oi.shootButton(), oi.loadBallButton(), number,overridden, oi.shooterSpeed(), oi.conveyorSpeed());
         }                   
         catch(Exception e){
