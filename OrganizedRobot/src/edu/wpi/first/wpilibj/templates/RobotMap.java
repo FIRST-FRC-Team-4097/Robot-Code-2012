@@ -16,10 +16,17 @@ public class RobotMap {
     // number and the module. For example you with a rangefinder:
     // public static final int rangefinderPort = 1;
     // public static final int rangefinderModule = 1;
+    public static final int CONVEYORPORT = 6;
+    public static final int SHOOTERPORT = 5;
+    public static final int LEFTFRONTMOTORPORT = 1;
+    public static final int LEFTREARMOTORPORT = 2;
+    public static final int RIGHTFRONTMOTORPORT = 3;
+    public static final int RIGHTREARMOTORPORT = 4;
+    public static final int ARMMOTORPORT = 7;
+    
     public static final int LEFTJOYPORT = 1;
     public static final int RIGHTJOYPORT = 2;
-    public static final int LEFTFRONTMOTORPORT = 1;
-    public static final int LEFTREARMOTORPORT = 3;
-    public static final int RIGHTFRONTMOTORPORT = 2;
-    public static final int RIGHTREARMOTORPORT = 4;
+    public static final int CONTROLLERPORT = 3;
 }
+
+//Numbers for motors were changed: used to be LF:1 LR:3 RF:2 RR:4

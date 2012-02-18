@@ -3,18 +3,23 @@
  * and open the template in the editor.
  */
 package edu.wpi.first.wpilibj.templates.commands;
+import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.templates.subsystems.DriveTrain;
+import edu.wpi.first.wpilibj.templates.OI;
 /**
  *
  * @author team4097
  */
 public class JoyDrive extends CommandBase {
-    DriveTrain go;
+    OI oi;
+    public DriveTrain go;
     JoyManipulator curve;
-    public JoyDrive() {
-        go = new DriveTrain();
+    
+    public JoyDrive(Jaguar LF, Jaguar LB, Jaguar RF, Jaguar RB, OI op) {
+        go = new DriveTrain(LF, LB, RF, RB);
         curve = new JoyManipulator();
-        // Use requires() here to declare subsystem dependencies
+        oi = op;
+        //Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
@@ -25,7 +30,7 @@ public class JoyDrive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        go.drive(curve.getPower(oi.getLeftPower()),curve.getPower(oi.getRightPower()));
+        go.drive(oi.getLeftPower(), oi.getRightPower());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -41,5 +46,13 @@ public class JoyDrive extends CommandBase {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
-
+    public void drive(){
+        go.drive(oi.getScale()*(oi.getLeftPower()), -oi.getScale()*(oi.getRightPower()));
+    }
+//    public void slowLeftDrive(){
+//        go.setLeft(-.2);
+//    }
+//    public void slowRightDrive(){
+//        go.setRight(.2);
+//    }
 }

@@ -8,6 +8,7 @@
 package edu.wpi.first.wpilibj.templates;
 
 
+import edu.wpi.first.wpilibj.templates.JoyManipulator;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -26,6 +27,9 @@ public class RobotTemplate extends IterativeRobot {
     Jaguar rightFrontMotor;
     Jaguar leftRearMotor;
     Jaguar rightRearMotor;
+    Jaguar shooter;
+    Jaguar arm;
+    Jaguar conveyor;
     Joystick leftJoy;
     Joystick rightJoy;
     DriverStationLCD display;
@@ -37,10 +41,13 @@ public class RobotTemplate extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+        shooter = new Jaguar(5);
+        arm = new Jaguar(7);
+        conveyor = new Jaguar(6);
         manipulator = new JoyManipulator();
         
-        leftFrontMotor = new Jaguar(1);
-        rightFrontMotor = new Jaguar(3);
+        leftFrontMotor = new Jaguar(3);
+        rightFrontMotor = new Jaguar(1);
         leftRearMotor = new Jaguar(2);
         rightRearMotor = new Jaguar(4);
         
@@ -50,11 +57,12 @@ public class RobotTemplate extends IterativeRobot {
         display = DriverStationLCD.getInstance();
         camera = AxisCamera.getInstance();
         
-        drive = new RobotDrive(leftFrontMotor, leftRearMotor, rightFrontMotor, rightRearMotor);
-        drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
-        drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
-        drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-        drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+//        drive = new RobotDrive(leftFrontMotor, leftRearMotor, rightFrontMotor, rightRearMotor);
+//        drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+//        drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+//        drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+//        drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+        
         System.out.println("RobotInit");
     }
 
@@ -76,12 +84,26 @@ public class RobotTemplate extends IterativeRobot {
     }
 
     public void teleopContinuous(){
-        System.out.println("teleopContin");
+//        System.out.println("teleopContin");
         //drive.tankDrive(leftJoy, rightJoy);
-        leftFrontMotor.set(-manipulator.getPower(leftJoy.getY()));
-        leftRearMotor.set(-manipulator.getPower(leftJoy.getY()));
-        rightFrontMotor.set(manipulator.getPower(rightJoy.getY()));
-        rightRearMotor.set(manipulator.getPower(rightJoy.getY()));
+        if(leftJoy.getRawButton(3))
+            arm.set(-.2);
+        else if(rightJoy.getRawButton(3))
+            arm.set(.2);
+        else
+            arm.set(0);
+        if(leftJoy.getTrigger())
+            shooter.set(-1);
+        else
+            shooter.set(0);
+        if(rightJoy.getTrigger())
+            conveyor.set(-.75);
+        else
+            conveyor.set(0);
+//        leftFrontMotor.set(-manipulator.getPower(leftJoy.getY()));
+//        leftRearMotor.set(-manipulator.getPower(leftJoy.getY()));
+//        rightFrontMotor.set(manipulator.getPower(rightJoy.getY()));
+//        rightRearMotor.set(manipulator.getPower(rightJoy.getY()));
         display.println(DriverStationLCD.Line.kUser2, 1, "Left Joystick Power: "+leftJoy.getY());
         display.println(DriverStationLCD.Line.kUser3, 1, "Right Joystick Power: "+rightJoy.getY());
         display.updateLCD();
