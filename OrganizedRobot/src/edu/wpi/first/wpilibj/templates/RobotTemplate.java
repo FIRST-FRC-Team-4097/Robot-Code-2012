@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj.templates.commands.ExampleCommand;
 import edu.wpi.first.wpilibj.templates.commands.JoyDrive;
 import edu.wpi.first.wpilibj.templates.subsystems.ArmMotor;
 import edu.wpi.first.wpilibj.templates.subsystems.Centering;
-import edu.wpi.first.wpilibj.templates.subsystems.Shooting;
 import edu.wpi.first.wpilibj.templates.subsystems.DriveTrain;
+import edu.wpi.first.wpilibj.templates.subsystems.Shooting;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -100,13 +100,13 @@ public class RobotTemplate extends IterativeRobot {
 //        if(overridden)
 //            System.out.println("overridden.");
         if(overridden){
-            display.println(DriverStationLCD.Line.kUser4, 1, "Shooter at: "+oi.shooterSpeed());
+//            display.println(DriverStationLCD.Line.kUser4, 1, "Shooter at: "+oi.shooterSpeed());
             display.println(DriverStationLCD.Line.kUser5, 1, "Conveyor at: "+oi.conveyorSpeed());
-            display.println(DriverStationLCD.Line.kUser6, 1, "Magnitude: "+oi.getMagnitude());
+            display.println(DriverStationLCD.Line.kUser6, 1, "Shooter at: "+oi.getMagnitude());
             display.println(DriverStationLCD.Line.kUser3, 1, "Override Mode ACTIVATED!");
         }
         else{
-            display.println(DriverStationLCD.Line.kUser4, 1, "");
+//            display.println(DriverStationLCD.Line.kUser4, 1, "");
             display.println(DriverStationLCD.Line.kUser5, 1, "");
             display.println(DriverStationLCD.Line.kUser6, 1, "");
             display.println(DriverStationLCD.Line.kUser3, 1, "Override Mode Deactivated.");
@@ -119,7 +119,7 @@ public class RobotTemplate extends IterativeRobot {
         display.println(DriverStationLCD.Line.kMain6, 1, "Distance: "+number);
         try{
 //            System.out.println("Trying shooter continuous.");
-            shoot.continuous(oi.shootButton(), oi.loadBallButton(), number,overridden, oi.shooterSpeed(), oi.conveyorSpeed());
+            shoot.continuous(oi.shootButton(), oi.loadBallButton(), number,overridden, oi.getMagnitude(), oi.conveyorSpeed());
         }                   
         catch(Exception e){
             System.out.println("Error in shooter continuous: "+e.getMessage());

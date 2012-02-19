@@ -19,23 +19,25 @@ public class ArmMotor{
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
-    double speed;
+    double fSpeed;
+    double rSpeed;
     Jaguar jaguar;
     
     
     //DriverStationLCD display;
     public ArmMotor(Jaguar arm) {
         jaguar = arm;
-        speed = -1;
+        fSpeed = -1;
+        rSpeed = -.4;
        
         //display = DriverStationLCD.getInstance();
     }
 
     private void armDown() {
-     jaguar.set(speed);
+        jaguar.set(fSpeed);
     }
     private void armUp(){
-        jaguar.set(-speed);
+        jaguar.set(-rSpeed);
     }
     public void set(double num){
         jaguar.set(num);

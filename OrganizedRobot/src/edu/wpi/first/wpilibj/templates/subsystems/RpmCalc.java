@@ -10,7 +10,7 @@ package edu.wpi.first.wpilibj.templates.subsystems;
  */
 public class RpmCalc {
     public double getRPM(double distance){
-        return 1000;
+        return 159.42663*distance-10277.6612;
         //fix this, fill in real RPM calc
     }
 }

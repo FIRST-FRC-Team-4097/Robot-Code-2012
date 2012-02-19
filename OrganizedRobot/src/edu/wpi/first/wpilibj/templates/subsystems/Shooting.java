@@ -62,8 +62,12 @@ public class Shooting {
     public void continuous(boolean one, boolean two, int distance, boolean overridden, double orShooterSpeed, double orConveyorSpeed){
         if(!overridden){
             if(one){
-                System.out.println("Shooting at speed: "+getSpeed(distance));
-                shootStart(-1);
+                if(distance == 0)
+                    shootStart(-1);
+                else{
+                    System.out.println("Shooting at speed: "+getSpeed(distance));
+                    shootStart(-getSpeed(distance));
+                }
             }
             
             else if(two)
@@ -76,7 +80,7 @@ public class Shooting {
         }
 
         else if(overridden) {
-            shooterMotor.set(orShooterSpeed);
+            shooterMotor.set(-orShooterSpeed);
             convey.set(orConveyorSpeed);
         }
 

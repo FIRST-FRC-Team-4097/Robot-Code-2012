@@ -2,6 +2,7 @@
 package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.templates.commands.JoyManipulator;
 
 public class OI {
@@ -18,9 +19,10 @@ public class OI {
     private Jaguar conveyor;
     private Jaguar shooterMotor;
     private boolean pudding;
+    private double oStart;
     public OI(){
-        
         pudding = false;
+        oStart = Timer.getFPGATimestamp();
         
         shooterMotor = new Jaguar(RobotMap.SHOOTERPORT);
         conveyor = new Jaguar(RobotMap.CONVEYORPORT);
@@ -107,8 +109,10 @@ public class OI {
     }
     
     public boolean override(){
-        if(controller.getRawButton(3))
+        if(controller.getRawButton(3) && (Timer.getFPGATimestamp()-oStart>=.25)){
+            oStart = Timer.getFPGATimestamp();
             pudding = !pudding;
+        }
         return pudding;
     }
     public double shooterSpeed(){
